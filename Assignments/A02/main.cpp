@@ -1,3 +1,12 @@
+/**
+*  Course: CMPS 2143 - OOP
+*  Assignment: A02
+*  Purpose: Create 2 lists, add them together, and print various values.
+* 
+*  @author Griffin Forsgren
+*  @version 1.1 01/03/17
+*/
+
 #include <iostream>
 
 using namespace std;
@@ -6,16 +15,29 @@ int A[100];
 
 struct Node
 {
-    int x;
+    int val_1;
     Node *next;
+     /**
+     *  Initializes an empty Node
+     *
+     *  @param n/a
+     *  @return n/a
+     */
+
     Node()
     {
-        x = -1;
+        val_1 = -1;
         next = NULL;
     }
-    Node(int n)
+    /**
+     *  Initializes a Node with an int
+     *
+     *  @param {int} entry value in the node
+     *  @return n/a
+     */
+    Node(int entry)
     {
-        x = n;
+        val_1 = entry;
         next = NULL;
     }
 };
@@ -28,11 +50,23 @@ class List
     int Size;
 
   public:
+    /**
+     *  Initializes an empty List
+     *
+     *  @param n/a
+     *  @return n/a
+     */
     List()
     {
         Head = Tail = NULL;
         Size = 0;
     }
+    /**
+     *  Pushes a node with a value onto the end of a list
+     *
+     *  @param {int} val of the node pushed on
+     *  @return n/a
+     */
 
     void Push(int val)
     {
@@ -50,6 +84,12 @@ class List
         }
         Size++;
     }
+    /**
+     *  Inserts a node into a list
+     *
+     *  @param {int} val of the insterted node
+     *  @return n/a
+     */
 
     void Insert(int val)
     {
@@ -66,12 +106,22 @@ class List
         }
         Size++;
     }
-
+    /**
+     *  Prints the tail node of the list
+     *
+     *  @param n/a
+     *  @return n/a
+     */
     void PrintTail()
     {
-        cout << Tail->x << endl;
+        cout << Tail-> val_l << endl;
     }
-
+    /**
+    *  Prints every value of the list
+    *
+    *  @param n/a
+    *  @return {string} list string of values in the list
+    */
     string Print()
     {
         Node *Temp = Head;
@@ -79,7 +129,7 @@ class List
 
         while (Temp != NULL)
         {
-            list += to_string(Temp->x) + "->";
+            list += to_string(Temp->val_1) + "->";
             Temp = Temp->next;
         }
 
@@ -87,11 +137,23 @@ class List
     }
 
     // not implemented 
+    /**
+    *  Prints the tail node of the list
+    *
+    *  @param n/a
+    *  @return {int} val_2 value of the popped node
+    */
     int Pop()
     {
         Size--;
         return 0; //
     }
+     /**
+     *  Combines two lists
+     *
+     *  @param {List} Rhs the right hand list
+     *  @return {List} NewList the sum of the two lists
+     */
 
     List operator+(const List &Rhs)
     {
@@ -124,6 +186,12 @@ class List
 
     // Implementation of [] operator.  This function returns an
     // int value as if the list were an array.
+     /**
+     *  takes ints from list as though it were array
+     *
+     *  @param {int} index index number of supposed array
+     *  @return {int} temp_>val_1 value at index
+     */
     int operator[](int index)
     {
         Node *Temp = Head;
@@ -140,10 +208,16 @@ class List
             {
                 Temp = Temp->next;
             }
-            return Temp->x;
+            return Temp->val_1;
         }
     }
-
+    
+    /**
+     *  Establishes ostream operator & as a friend
+     *
+     *  @param {ostream} os {List} L output stream and list
+     *  @return {ostream} os output now friended with List
+     */
     friend ostream &operator<<(ostream &os, List L)
     {
         os << L.Print();
@@ -151,28 +225,34 @@ class List
     }
 };
 
+//Controls operation of the program
 int main(int argc, char **argv)
 {
     List L1;
     List L2;
-
+    //for i starting at 0, going up to 25 by ones
     for (int i = 0; i < 25; i++)
     {
+        //push value of i onto L1
         L1.Push(i);
     }
-
+    //for i starting at 50, going up to 100 by ones
     for (int i = 50; i < 100; i++)
     {
+        //push value of i onto L2
         L2.Push(i);
     }
 
     //cout << L1 << endl;
+    //Print the tails of bot L1 and L2
     L1.PrintTail();
     L2.PrintTail();
-
+    
+    //List L3 is the combination of L1 and L2
     List L3 = L1 + L2;
+    
+    //Print L3 and 5th node
     cout << L3 << endl;
-
     cout << L3[5] << endl;
     return 0;
 }
